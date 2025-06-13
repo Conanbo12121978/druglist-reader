@@ -106,7 +106,7 @@ else:
         st.markdown(f"""
         <div class="drug-card">
             <strong>ชื่อยา:</strong> {row['drug_name']}<br>
-            <strong>รหัสบัญชียา:</strong> {row['account_drug_ID']}
+            <strong>บัญชียา:</strong> {row['account_drug_ID']}
         </div>
         """, unsafe_allow_html=True)
 
