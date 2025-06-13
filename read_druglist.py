@@ -60,7 +60,7 @@ a {
     margin-top: 10px;
 }
 a:hover {
-    background-color: #1e40af;
+    background-color: #10b981;
 }
 </style>
 """, unsafe_allow_html=True)
