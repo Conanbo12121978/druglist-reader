@@ -53,14 +53,14 @@ st.markdown("""
 /* ปุ่มลิงก์ดาวน์โหลด */
 a {
     color: #ffffff;
-    background-color: #2563eb;
+    background-color: ##10b981;
     padding: 8px 16px;
     border-radius: 6px;
     display: inline-block;
     margin-top: 10px;
 }
 a:hover {
-    background-color: #10b981;
+    background-color: #059669;
 }
 </style>
 """, unsafe_allow_html=True)
