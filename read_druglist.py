@@ -28,7 +28,7 @@ if st.button("🔄 เคลียร์ตัวกรองทั้งหม�
 # ========= ฟิลเตอร์ subtype1 =========
 subtype1_list = df["subtype1_name"].dropna().unique()
 selected_subtype1 = st.selectbox(
-    "เลือกประเภทหลัก (subtype1_name)",
+    "เลือกประเภทหลัก",
     ["ทั้งหมด"] + sorted(list(subtype1_list)),
     key="subtype1_filter"
 )
@@ -38,7 +38,7 @@ if selected_subtype1 != "ทั้งหมด":
 # ========= ฟิลเตอร์ subtype2 =========
 subtype2_list = df["subtype2_name"].dropna().unique()
 selected_subtype2 = st.selectbox(
-    "เลือกประเภทรอง (subtype2_name)",
+    "เลือกประเภทรอง",
     ["ทั้งหมด"] + sorted(list(subtype2_list)),
     key="subtype2_filter"
 )
@@ -46,7 +46,7 @@ if selected_subtype2 != "ทั้งหมด":
     df = df[df["subtype2_name"] == selected_subtype2]
 
 # ========= ช่องค้นหาชื่อยา =========
-search_text = st.text_input("🔎 พิมพ์ชื่อยา (drug_name)", key="search_text")
+search_text = st.text_input("🔎 พิมพ์ชื่อยา", key="search_text")
 if search_text.strip():
     df = df[df["drug_name"].fillna("").str.contains(search_text, case=False)]
 
@@ -68,7 +68,7 @@ else:
             font-size: 16px;
         ">
             <strong>ชื่อยา:</strong> {row['drug_name']}<br>
-            <strong>รหัสบัญชียา:</strong> {row['account_drug_ID']}
+            <strong>บัญชียา:</strong> {row['account_drug_ID']}
         </div>
         """, unsafe_allow_html=True)
 
