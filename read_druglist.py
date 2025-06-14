@@ -25,7 +25,11 @@ def to_excel_download(df):
     '''
 
 # ========== โหลดข้อมูล ==========
-df = pd.read_excel("druglist.xlsx")
+@st.cache_data
+def load_data():
+    return pd.read_excel("druglist.xlsx")
+
+df = load_data()
 
 # ========== Page Config ==========
 st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered")
