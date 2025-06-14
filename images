@@ -1,1 +1,4 @@
 
+git rm -r images
+git commit -m "ลบโฟลเดอร์ images"
+git push
