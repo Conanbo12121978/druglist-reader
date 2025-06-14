@@ -41,7 +41,7 @@ st.markdown("""
 .drug-card {
     padding: 12px 16px;
     margin-bottom: 12px;
-    border-left: 10px solid #38bdf8;
+    border-left: 20px solid #38bdf8;
     border: 1px solid #60a5fa;
     border-radius: 8px;
     font-size: 16px;
