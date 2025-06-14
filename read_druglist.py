@@ -28,43 +28,50 @@ def to_excel_download(df):
     </a>
     '''
 
+# 🎨 ฟังก์ชันเลือกสีของแต่ละบัญชี
+def get_border_color(account_id):
+    account_id = str(account_id).strip()
+    color_map = {
+        "ก": "#38bdf8",       # ฟ้า
+        "ข": "#4ade80",       # เขียวอ่อน
+        "ค": "#facc15",       # เหลือง
+        "ง": "#fb923c",       # ส้ม
+        "จ": "#f472b6",       # ชมพู
+        "นอกบัญชี": "#a3a3a3",  # เทา
+        "บัญชียาจากสมุนไพร": "#34d399",  # เขียวมินต์
+    }
+    return color_map.get(account_id, "#60a5fa")  # ค่า default ถ้าไม่รู้จักบัญชี
+
 # ========== โหลดข้อมูล ==========
 df = pd.read_excel("druglist.xlsx")
 
 # ========== หัวเรื่อง ==========
 st.markdown('<h3 style="margin-bottom: 0; color: #6A1B9A;">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</h3>', unsafe_allow_html=True)
 
-# ========== CSS Style ==========
+# ========== CSS Style (พื้นฐาน) ==========
 st.markdown("""
 <style>
-/* 💊 กล่องแสดงรายการยา */
 .drug-card {
     padding: 12px 16px;
     margin-bottom: 12px;
-    border-left: 6px solid #38bdf8 !important;
-    border: 1px solid #60a5fa;
+    border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-/* 🌞 โหมดสว่าง */
 @media (prefers-color-scheme: light) {
     .drug-card {
-        background-color: #f0f9ff;
+        background-color: #f9fafb;
         color: #000000;
     }
 }
-
-/* 🌚 โหมดมืด */
 @media (prefers-color-scheme: dark) {
     .drug-card {
-        background-color: #f0f9ff;
+        background-color: #f9fafb;
         color: #000000;
     }
 }
-
-/* 🔗 ปุ่มดาวน์โหลด */
 a {
     color: #ffffff;
     background-color: #2563eb;
@@ -76,19 +83,6 @@ a {
 }
 a:hover {
     background-color: #1e40af;
-}
-
-/* 🎛️ ปรับสีพื้นหลัง dropdown (selectbox) ให้ดูสว่างขึ้น */
-div[data-baseweb="select"] > div {
-    background-color: #4b5563;
-    color: white;
-}
-div[data-baseweb="select"] div:hover {
-    background-color: #6b7280;
-}
-div[data-baseweb="select"] div[aria-selected="true"] {
-    background-color: #6a1b9a !important;
-    color: white;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -133,38 +127,39 @@ else:
 
         if len(entries) == 1:
             row = entries.iloc[0]
+            account = row['account_drug_ID']
+            color = get_border_color(account)
             group_parts = [
                 str(row.get("subtype1_name", "")).strip(),
                 str(row.get("subtype2_name", "")).strip(),
                 str(row.get("subtype3_name", "")).strip()
             ]
             group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
-
             st.markdown(f"""
-            <div class="drug-card">
+            <div class="drug-card" style="border-left: 8px solid {color};">
                 <strong>ชื่อยา:</strong> {row['drug_name']}<br>
-                <strong>บัญชี:</strong> {row['account_drug_ID']}<br>
+                <strong>บัญชี:</strong> {account}<br>
                 <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
             </div>
             """, unsafe_allow_html=True)
         else:
             with st.expander(f"💊 {drug} ({len(entries)} กลุ่มยา)"):
                 for _, row in entries.iterrows():
+                    account = row['account_drug_ID']
+                    color = get_border_color(account)
                     group_parts = [
                         str(row.get("subtype1_name", "")).strip(),
                         str(row.get("subtype2_name", "")).strip(),
                         str(row.get("subtype3_name", "")).strip()
                     ]
                     group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
-
                     st.markdown(f"""
-                    <div class="drug-card">
-                        <strong>บัญชี:</strong> {row['account_drug_ID']}<br>
+                    <div class="drug-card" style="border-left: 8px solid {color};">
+                        <strong>บัญชี:</strong> {account}<br>
                         <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
                     </div>
                     """, unsafe_allow_html=True)
 
-    # 🔽 ปุ่มดาวน์โหลด Excel
     st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
 # ========== Footer ==========
