@@ -104,18 +104,18 @@ if st.button("🔄 เคลียร์ตัวกรองทั้งหม�
 
 # ========== ตัวกรอง ==========
 subtype1_list = df["subtype1_name"].dropna().unique()
-selected_subtype1 = st.selectbox("เลือกประเภทหลัก", ["ทั้งหมด"] + sorted(subtype1_list), key="subtype1_filter")
-if selected_subtype1 != "ทั้งหมด":
+selected_subtype1 = st.selectbox("เลือกประเภทหลัก", ["--ทั้งหมด--"] + sorted(subtype1_list), key="subtype1_filter")
+if selected_subtype1 != "--ทั้งหมด--":
     df = df[df["subtype1_name"] == selected_subtype1]
 
 subtype2_list = df["subtype2_name"].dropna().unique()
-selected_subtype2 = st.selectbox("เลือกประเภทรอง", ["ทั้งหมด"] + sorted(subtype2_list), key="subtype2_filter")
-if selected_subtype2 != "ทั้งหมด":
+selected_subtype2 = st.selectbox("เลือกประเภทรอง", ["--ทั้งหมด--"] + sorted(subtype2_list), key="subtype2_filter")
+if selected_subtype2 != "--ทั้งหมด--":
     df = df[df["subtype2_name"] == selected_subtype2]
 
 account_list = df["account_drug_ID"].dropna().unique()
-selected_account = st.selectbox("เลือกบัญชียา", ["ทั้งหมด"] + sorted(account_list), key="account_filter")
-if selected_account != "ทั้งหมด":
+selected_account = st.selectbox("เลือกบัญชียา", ["--ทั้งหมด--"] + sorted(account_list), key="account_filter")
+if selected_account != "--ทั้งหมด--":
     df = df[df["account_drug_ID"] == selected_account]
 
 search_text = st.text_input("🔍 พิมพ์ชื่อยา", key="search_text")
