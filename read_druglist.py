@@ -49,22 +49,6 @@ st.markdown("""
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* 🌞 โหมดสว่าง */
-@media (prefers-color-scheme: light) {
-    .drug-card {
-        background-color: #f0f9ff;
-        color: #000000;
-    }
-}
-
-/* 🌚 โหมดมืด */
-@media (prefers-color-scheme: dark) {
-    .drug-card {
-        background-color: #2a2e3b;
-        color: #ffffff;
-    }
-}
-
 /* 🔗 ปุ่มดาวน์โหลด */
 a {
     color: #ffffff;
