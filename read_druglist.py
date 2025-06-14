@@ -75,20 +75,20 @@ a:hover {
     background-color: #1e40af;
 }
 
-/* ปรับสีพื้นหลัง dropdown ของ selectbox */
+/* ปรับพื้นหลัง dropdown ของ selectbox ให้จางขึ้น */
 div[data-baseweb="select"] > div {
-    background-color: #2d3748;  /* พื้นหลัง dropdown */
+    background-color: #4b5563;  /* เดิมคือ #2d3748 */
     color: white;
 }
 
-/* เมื่อ hover รายการ */
+/* Hover */
 div[data-baseweb="select"] div:hover {
-    background-color: #4c566a;
+    background-color: #6b7280;
 }
 
-/* สีเมื่อรายการถูกเลือก */
+/* เมื่อเลือกแล้ว */
 div[data-baseweb="select"] div[aria-selected="true"] {
-    background-color: #6a1b9a !important;  /* สีม่วง */
+    background-color: #6a1b9a !important;
     color: white;
 }
 
