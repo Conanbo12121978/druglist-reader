@@ -11,7 +11,15 @@ def to_excel_download(df):
     b64 = base64.b64encode(output.getvalue()).decode()
     return f'''
     <a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" 
-       download="filtered_drugs.xlsx" style="text-decoration: none;">
+       download="filtered_drugs.xlsx" style="
+       text-decoration: none;
+       background-color: #2563eb;
+       color: white;
+       padding: 8px 16px;
+       border-radius: 6px;
+       display: inline-block;
+       margin-top: 10px;
+    ">
        📥 ดาวน์โหลด Excel
     </a>
     '''
