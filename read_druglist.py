@@ -97,9 +97,9 @@ div[data-baseweb="select"] div[aria-selected="true"] {
 
 # ========== ปุ่มเคลียร์ตัวกรอง ==========
 if st.button("🔄 เคลียร์ตัวกรองทั้งหมด"):
-    st.session_state["subtype1_filter"] = "ทั้งหมด"
-    st.session_state["subtype2_filter"] = "ทั้งหมด"
-    st.session_state["account_filter"] = "ทั้งหมด"
+    st.session_state["subtype1_filter"] = "--ทั้งหมด--"
+    st.session_state["subtype2_filter"] = "--ทั้งหมด--"
+    st.session_state["account_filter"] = "--ทั้งหมด--"
     st.session_state["search_text"] = ""
 
 # ========== ตัวกรอง ==========
