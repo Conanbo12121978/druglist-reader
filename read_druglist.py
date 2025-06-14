@@ -103,12 +103,16 @@ if df.empty:
     st.warning("ไม่พบข้อมูลที่ตรงกับเงื่อนไขที่เลือก")
 else:
     for _, row in df.iterrows():
-        st.markdown(f"""
-        <div class="drug-card">
-            <strong>ชื่อยา:</strong> {row['drug_name']}<br>
-            <strong>บัญชียา:</strong> {row['account_drug_ID']}<br>
-            <strong>กลุ่มยา:</strong> {row['subtype1_name']}
-        </div>
-        """, unsafe_allow_html=True)
+    subtype1 = row.get("subtype1_name", "")
+    subtype2 = row.get("subtype2_name", "")
+    group_info = f"{subtype1} ; {subtype2}" if subtype1 or subtype2 else "ไม่ระบุ"
+
+    st.markdown(f"""
+    <div class="drug-card">
+        <strong>ชื่อยา:</strong> {row['drug_name']}<br>
+        <strong>บัญชียา:</strong> {row['account_drug_ID']}<br>
+        <strong>กลุ่มยา:</strong> {group_info}
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown(to_excel_download(df), unsafe_allow_html=True)
