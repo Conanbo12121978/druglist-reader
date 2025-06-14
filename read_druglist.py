@@ -1,4 +1,8 @@
 import streamlit as st
+
+# 🔧 ต้องอยู่บนสุด!
+st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered")
+
 import pandas as pd
 from io import BytesIO
 import base64
@@ -25,14 +29,9 @@ def to_excel_download(df):
     '''
 
 # ========== โหลดข้อมูล ==========
-@st.cache_data
-def load_data():
-    return pd.read_excel("druglist.xlsx")
+df = pd.read_excel("druglist.xlsx")
 
-df = load_data()
-
-# ========== Page Config ==========
-st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered")
+# ========== หัวเรื่อง ==========
 st.markdown('<h3 style="margin-bottom: 0; color: #6A1B9A;">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</h3>', unsafe_allow_html=True)
 
 # ========== CSS Style ==========
@@ -43,6 +42,7 @@ st.markdown("""
     padding: 12px 16px;
     margin-bottom: 12px;
     border-left: 6px solid #38bdf8;
+    border: 1px solid #60a5fa;
     border-radius: 8px;
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -60,12 +60,12 @@ st.markdown("""
 /* 🌚 โหมดมืด */
 @media (prefers-color-scheme: dark) {
     .drug-card {
-        background-color: #2a2e3b;  /* ปรับให้สว่างกว่าสีดำ */
+        background-color: #2a2e3b;
         color: #ffffff;
     }
 }
 
-/* 🔗 ลิงก์ปุ่มดาวน์โหลด */
+/* 🔗 ปุ่มดาวน์โหลด */
 a {
     color: #ffffff;
     background-color: #2563eb;
@@ -79,23 +79,18 @@ a:hover {
     background-color: #1e40af;
 }
 
-/* ปรับพื้นหลัง dropdown ของ selectbox ให้จางขึ้น */
+/* 🎛️ ปรับสีพื้นหลัง dropdown (selectbox) ให้ดูสว่างขึ้น */
 div[data-baseweb="select"] > div {
-    background-color: #4b5563;  /* เดิมคือ #2d3748 */
+    background-color: #4b5563;
     color: white;
 }
-
-/* Hover */
 div[data-baseweb="select"] div:hover {
     background-color: #6b7280;
 }
-
-/* เมื่อเลือกแล้ว */
 div[data-baseweb="select"] div[aria-selected="true"] {
     background-color: #6a1b9a !important;
     color: white;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -126,7 +121,7 @@ search_text = st.text_input("🔍 พิมพ์ชื่อยา", key="searc
 if search_text.strip():
     df = df[df["drug_name"].fillna("").str.contains(search_text, case=False)]
 
-# ========== แสดงจำนวนและผลลัพธ์ ==========
+# ========== แสดงผลลัพธ์ ==========
 unique_drugs = df["drug_name"].dropna().unique()
 st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} > {selected_account} | ค้นหา: {search_text if search_text else '-'}")
 st.subheader(f"📋 พบ {len(unique_drugs)} รายการชื่อยาไม่ซ้ำ")
@@ -170,6 +165,7 @@ else:
                     </div>
                     """, unsafe_allow_html=True)
 
+    # 🔽 ปุ่มดาวน์โหลด Excel
     st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
 # ========== Footer ==========
