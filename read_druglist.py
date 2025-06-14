@@ -29,7 +29,7 @@ df = pd.read_excel("druglist.xlsx")
 
 # ========== Page Config ==========
 st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered")
-st.title("💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 68")
+st.markdown('<h3 style="margin-bottom: 0; color: #6A1B9A;">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</h3>', unsafe_allow_html=True)
 
 # ========== CSS Style ==========
 st.markdown("""
