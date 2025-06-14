@@ -3,27 +3,29 @@ import pandas as pd
 from io import BytesIO
 import base64
 
-# ========== ฟังก์ชันสร้างลิงก์ดาวน์โหลด Excel ==========
+# ========== ฟังก์ชันดาวน์โหลด Excel ==========
 def to_excel_download(df):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
         df.to_excel(writer, index=False, sheet_name='Drugs')
-    processed_data = output.getvalue()
-    b64 = base64.b64encode(processed_data).decode()
-    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="filtered_drugs.xlsx" style="text-decoration: none; font-size: 18px;">📥 ดาวน์โหลด Excel</a>'
-    return href
+    b64 = base64.b64encode(output.getvalue()).decode()
+    return f'''
+    <a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" 
+       download="filtered_drugs.xlsx" style="text-decoration: none;">
+       📥 ดาวน์โหลด Excel
+    </a>
+    '''
 
 # ========== โหลดข้อมูล ==========
 df = pd.read_excel("druglist.xlsx")
 
 # ========== Page Config ==========
-st.set_page_config(page_title="Drug Finder", layout="centered")
+st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered")
 st.title("💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 68")
 
-# ========== CSS สำหรับธีมสีสวยงาม ==========
+# ========== CSS Style ==========
 st.markdown("""
 <style>
-/* กล่องแสดงรายการยา */
 .drug-card {
     padding: 12px 16px;
     margin-bottom: 12px;
@@ -50,17 +52,17 @@ st.markdown("""
     }
 }
 
-/* ปุ่มลิงก์ดาวน์โหลด */
 a {
     color: #ffffff;
-    background-color: ##10b981;
+    background-color: #2563eb;
     padding: 8px 16px;
     border-radius: 6px;
     display: inline-block;
     margin-top: 10px;
+    text-decoration: none;
 }
 a:hover {
-    background-color: #059669;
+    background-color: #1e40af;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -71,57 +73,49 @@ if st.button("🔄 เคลียร์ตัวกรองทั้งหม�
     st.session_state["subtype2_filter"] = "ทั้งหมด"
     st.session_state["search_text"] = ""
 
-# ========== ฟิลเตอร์ subtype1 ==========
+# ========== ตัวกรองหลัก ==========
 subtype1_list = df["subtype1_name"].dropna().unique()
-selected_subtype1 = st.selectbox(
-    "เลือกประเภทหลัก",
-    ["ทั้งหมด"] + sorted(list(subtype1_list)),
-    key="subtype1_filter"
-)
+selected_subtype1 = st.selectbox("เลือกประเภทหลัก", ["ทั้งหมด"] + sorted(subtype1_list), key="subtype1_filter")
 if selected_subtype1 != "ทั้งหมด":
     df = df[df["subtype1_name"] == selected_subtype1]
 
-# ========== ฟิลเตอร์ subtype2 ==========
+# ========== ตัวกรองรอง ==========
 subtype2_list = df["subtype2_name"].dropna().unique()
-selected_subtype2 = st.selectbox(
-    "เลือกประเภทรอง",
-    ["ทั้งหมด"] + sorted(list(subtype2_list)),
-    key="subtype2_filter"
-)
+selected_subtype2 = st.selectbox("เลือกประเภทรอง", ["ทั้งหมด"] + sorted(subtype2_list), key="subtype2_filter")
 if selected_subtype2 != "ทั้งหมด":
     df = df[df["subtype2_name"] == selected_subtype2]
 
-# ========== ช่องค้นหาชื่อยา ==========
-search_text = st.text_input("🔎 พิมพ์ชื่อยา", key="search_text")
+# ========== ค้นหาชื่อยา ==========
+search_text = st.text_input("🔍 พิมพ์ชื่อยา", key="search_text")
 if search_text.strip():
     df = df[df["drug_name"].fillna("").str.contains(search_text, case=False)]
 
-# ========== แสดงผล ==========
-st.subheader(f"📋 พบ {len(df)} รายการ ที่ตรงกับเงื่อนไข")
+# ========== แสดงจำนวนและเงื่อนไขที่เลือก ==========
+st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} | ค้นหา: {search_text if search_text else '-'}")
+st.subheader(f"📋 พบ {len(df)} รายการที่ตรงกับเงื่อนไข")
 
+# ========== แสดงรายการยาแบบปกติ ==========
 if df.empty:
-    st.warning("ไม่พบข้อมูลที่ตรงกับเงื่อนไขที่เลือก")
+    st.warning("ไม่พบข้อมูลที่ตรงกับเงื่อนไข")
 else:
     for _, row in df.iterrows():
-        # ดึงค่ากลุ่มยาที่ไม่ว่าง
         group_parts = [
-            row.get("subtype1_name", ""),
-            row.get("subtype2_name", ""),
-            row.get("subtype3_name", "")
+            str(row.get("subtype1_name", "")).strip(),
+            str(row.get("subtype2_name", "")).strip(),
+            str(row.get("subtype3_name", "")).strip()
         ]
-        group_parts = [
-            str(g).strip()
-            for g in group_parts
-            if pd.notna(g) and str(g).strip()
-        ]
-        group_info = " ; ".join(group_parts) if group_parts else "ไม่ระบุ"
+        group_info = " ; ".join([g for g in group_parts if g and g.lower() != "nan"])
 
         st.markdown(f"""
         <div class="drug-card">
             <strong>ชื่อยา:</strong> {row['drug_name']}<br>
             <strong>บัญชียา:</strong> {row['account_drug_ID']}<br>
-            <strong>กลุ่มยา:</strong> {group_info}
+            <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown(to_excel_download(df), unsafe_allow_html=True)
+
+# ========== Footer ==========
+st.markdown("---")
+st.caption("จัดทำโดย งานเภสัชกรรม รพ.ท้ายเหมืองชัยพัฒน์ | © 2568")
