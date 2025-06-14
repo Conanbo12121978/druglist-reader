@@ -149,7 +149,7 @@ else:
                 <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
             </div>
             """, unsafe_allow_html=True)
-                else:
+        else:
             with st.expander("", expanded=False):
                 st.markdown(f"""
                 <div class="drug-card">
