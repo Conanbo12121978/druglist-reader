@@ -54,7 +54,7 @@ st.markdown("""
 
 a {
     color: #ffffff;
-    background-color: #2563eb;
+    background-color: none;
     padding: 8px 16px;
     border-radius: 6px;
     display: inline-block;
@@ -109,7 +109,7 @@ else:
         st.markdown(f"""
         <div class="drug-card">
             <strong>ชื่อยา:</strong> {row['drug_name']}<br>
-            <strong>บัญชียา:</strong> {row['account_drug_ID']}<br>
+            <strong>บัญชี:</strong> {row['account_drug_ID']}<br>
             <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
         </div>
         """, unsafe_allow_html=True)
@@ -118,4 +118,4 @@ else:
 
 # ========== Footer ==========
 st.markdown("---")
-st.caption("จัดทำโดย งานเภสัชกรรม รพ.ท้ายเหมืองชัยพัฒน์ | © 2568")
+st.caption("จัดทำโดย กลุ่มงานเภสัชกรรม รพ.ท้ายเหมืองชัยพัฒน์ | © 2568")
