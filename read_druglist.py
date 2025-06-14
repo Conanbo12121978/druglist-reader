@@ -54,7 +54,7 @@ st.markdown("""
 .drug-card {
     padding: 12px 16px;
     margin-bottom: 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #60a5fa;
     border-radius: 8px;
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -62,13 +62,13 @@ st.markdown("""
 }
 @media (prefers-color-scheme: light) {
     .drug-card {
-        background-color: #f9fafb;
+        background-color: #f0f9ff;
         color: #000000;
     }
 }
 @media (prefers-color-scheme: dark) {
     .drug-card {
-        background-color: #f9fafb;
+        background-color: #f0f9ff;
         color: #000000;
     }
 }
