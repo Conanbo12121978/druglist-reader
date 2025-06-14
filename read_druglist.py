@@ -151,19 +151,19 @@ else:
             """, unsafe_allow_html=True)
         else:
             with st.expander("", expanded=False):
-    st.markdown(f"""
-    <div class="drug-card" style="margin-top: -16px; margin-bottom: 8px;">
+    st.markdown(f"""  ← ต้องเยื้อง!
+    <div class="drug-card">
         <strong>{drug}</strong> <span style="color: gray;">({len(entries)} กลุ่มยา)</span>
     </div>
     """, unsafe_allow_html=True)
 
-    for idx, (_, row) in enumerate(entries.iterrows()):
+    for _, row in entries.iterrows():
         group_parts = [
             str(row.get("subtype1_name", "")).strip(),
             str(row.get("subtype2_name", "")).strip(),
             str(row.get("subtype3_name", "")).strip()
         ]
-        group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
+        group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan")
 
         st.markdown(f"""
         <div class="drug-card">
