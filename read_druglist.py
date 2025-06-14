@@ -71,23 +71,21 @@ a:hover {
     background-color: #1e40af;
 }
 
-/* ปรับ Selectbox และ Text input โหมดมืด */
+/* รายการใน selectbox dropdown (Dark mode) */
 @media (prefers-color-scheme: dark) {
-    section[data-testid="stSelectbox"] > div {
-        background-color: #374151;
-        border: 1px solid #6B21A8;
-        border-radius: 6px;
+    .stSelectbox [data-baseweb="select"] > div {
+        background-color: #1f2937 !important;
+        color: white !important;
     }
-    div[data-baseweb="input"] {
-        background-color: #374151;
-        border: 1px solid #6B21A8;
-        border-radius: 6px;
-        color: white;
+    .stSelectbox [data-baseweb="select"] div[role="option"] {
+        background-color: #1f2937 !important;
+        color: white !important;
     }
-    section[data-testid="stTextInput"] input {
-        color: white;
+    .stSelectbox [data-baseweb="select"] div[role="option"]:hover {
+        background-color: #4B5563 !important;
     }
 }
+
 </style>
 """, unsafe_allow_html=True)
 
