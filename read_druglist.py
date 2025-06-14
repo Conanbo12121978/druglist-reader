@@ -131,7 +131,7 @@ if len(unique_drugs) == 0:
     st.warning("ไม่พบข้อมูลที่ตรงกับเงื่อนไข")
 else:
     for drug in unique_drugs:
-    entries = df[df["drug_name"] == drug]
+        entries = df[df["drug_name"] == drug]
 
     if len(entries) == 1:
         row = entries.iloc[0]
