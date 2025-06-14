@@ -78,11 +78,11 @@ a:hover {
 /* 🎛️ ปรับ selectbox ในโหมดมืด */
 @media (prefers-color-scheme: dark) {
     .stSelectbox [data-baseweb="select"] > div {
-        background-color: #1f2937 !important;
+        background-color: #4B5563 !important;
         color: white !important;
     }
     .stSelectbox [data-baseweb="select"] div[role="option"] {
-        background-color: #1f2937 !important;
+        background-color: #4B5563 !important;
         color: white !important;
     }
     .stSelectbox [data-baseweb="select"] div[role="option"]:hover {
