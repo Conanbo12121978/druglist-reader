@@ -105,7 +105,8 @@ else:
     for _, row in df.iterrows():
         subtype1 = row.get("subtype1_name", "")
         subtype2 = row.get("subtype2_name", "")
-        group_info = f"{subtype1} ; {subtype2}" if subtype1 or subtype2 else "ไม่ระบุ"
+        subtype3 = row.get("subtype3_name", "")
+        group_info = f"{subtype1} ; {subtype2} ; {subtype3}" if subtype1 or subtype2 or subtype3 else "ไม่ระบุ"
 
         st.markdown(f"""
         <div class="drug-card">
