@@ -151,7 +151,7 @@ else:
         """, unsafe_allow_html=True)
 
     else:
-        with st.expander(f"💊 {drug} ({len(entries)} กลุ่มยา)"):
+        with st.expander(f"{drug} ({len(entries)} กลุ่มยา)"):
             for _, row in entries.iterrows():
                 group_parts = [
                     str(row.get("subtype1_name", "")).strip(),
