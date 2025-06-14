@@ -99,7 +99,7 @@ if search_text.strip():
 
 # ========== แสดงจำนวนและผลลัพธ์ ==========
 unique_drugs = df["drug_name"].dropna().unique()
-st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} | ค้นหา: {search_text if search_text else '-'}")
+st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} > {selected_account} | ค้นหา: {search_text if search_text else '-'}")
 st.subheader(f"📋 พบ {len(unique_drugs)} รายการชื่อยาไม่ซ้ำ")
 
 if len(unique_drugs) == 0:
