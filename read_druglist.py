@@ -90,6 +90,16 @@ search_text = st.text_input("🔍 พิมพ์ชื่อยา", key="searc
 if search_text.strip():
     df = df[df["drug_name"].fillna("").str.contains(search_text, case=False)]
 
+# ========== ฟิลเตอร์ account_drug_ID ==========
+account_list = df["account_drug_ID"].dropna().unique()
+selected_account = st.selectbox(
+    "เลือกบัญชียา",
+    ["ทั้งหมด"] + sorted(list(account_list)),
+    key="account_filter"
+)
+if selected_account != "ทั้งหมด":
+    df = df[df["account_drug_ID"] == selected_account]
+
 # ========== แสดงจำนวนและเงื่อนไขที่เลือก ==========
 st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} | ค้นหา: {search_text if search_text else '-'}")
 st.subheader(f"📋 พบ {len(df)} รายการที่ตรงกับเงื่อนไข")
