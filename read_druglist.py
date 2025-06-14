@@ -149,28 +149,28 @@ else:
                 <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
             </div>
             """, unsafe_allow_html=True)
-        else:
+                else:
             with st.expander("", expanded=False):
-    st.markdown(f"""  ← ต้องเยื้อง!
-    <div class="drug-card">
-        <strong>{drug}</strong> <span style="color: gray;">({len(entries)} กลุ่มยา)</span>
-    </div>
-    """, unsafe_allow_html=True)
+                st.markdown(f"""
+                <div class="drug-card">
+                    <strong>{drug}</strong> <span style="color: gray;">({len(entries)} กลุ่มยา)</span>
+                </div>
+                """, unsafe_allow_html=True)
 
-    for _, row in entries.iterrows():
-        group_parts = [
-            str(row.get("subtype1_name", "")).strip(),
-            str(row.get("subtype2_name", "")).strip(),
-            str(row.get("subtype3_name", "")).strip()
-        ]
-        group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan")
+                for _, row in entries.iterrows():
+                    group_parts = [
+                        str(row.get("subtype1_name", "")).strip(),
+                        str(row.get("subtype2_name", "")).strip(),
+                        str(row.get("subtype3_name", "")).strip()
+                    ]
+                    group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
 
-        st.markdown(f"""
-        <div class="drug-card">
-            <strong>บัญชี:</strong> {row['account_drug_ID']}<br>
-            <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
-        </div>
-        """, unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="drug-card">
+                        <strong>บัญชี:</strong> {row['account_drug_ID']}<br>
+                        <strong>กลุ่มยา:</strong> {group_info if group_info else 'ไม่ระบุ'}
+                    </div>
+                    """, unsafe_allow_html=True)
 
     st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
