@@ -34,7 +34,7 @@ st.markdown('<h3 style="margin-bottom: 0; color: #6A1B9A;">💊 บัญชี�
 # ========== CSS Style ==========
 st.markdown("""
 <style>
-/* กล่องยา */
+/* 💊 กล่องแสดงรายการยา */
 .drug-card {
     padding: 12px 16px;
     margin-bottom: 12px;
@@ -44,20 +44,24 @@ st.markdown("""
     transition: background-color 0.3s ease, color 0.3s ease;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
+
+/* 🌞 โหมดสว่าง */
 @media (prefers-color-scheme: light) {
     .drug-card {
         background-color: #f0f9ff;
         color: #000000;
     }
 }
+
+/* 🌚 โหมดมืด */
 @media (prefers-color-scheme: dark) {
     .drug-card {
-        background-color: #1e293b;
+        background-color: #2a2e3b;  /* ปรับให้สว่างกว่าสีดำ */
         color: #ffffff;
     }
 }
 
-/* ลิงก์ดาวน์โหลด */
+/* 🔗 ลิงก์ปุ่มดาวน์โหลด */
 a {
     color: #ffffff;
     background-color: #2563eb;
@@ -71,7 +75,7 @@ a:hover {
     background-color: #1e40af;
 }
 
-/* รายการใน selectbox dropdown (Dark mode) */
+/* 🎛️ ปรับ selectbox ในโหมดมืด */
 @media (prefers-color-scheme: dark) {
     .stSelectbox [data-baseweb="select"] > div {
         background-color: #1f2937 !important;
@@ -85,7 +89,6 @@ a:hover {
         background-color: #4B5563 !important;
     }
 }
-
 </style>
 """, unsafe_allow_html=True)
 
