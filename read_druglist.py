@@ -34,6 +34,7 @@ st.markdown('<h3 style="margin-bottom: 0; color: #6A1B9A;">💊 บัญชี�
 # ========== CSS Style ==========
 st.markdown("""
 <style>
+/* กล่องยา */
 .drug-card {
     padding: 12px 16px;
     margin-bottom: 12px;
@@ -55,6 +56,8 @@ st.markdown("""
         color: #ffffff;
     }
 }
+
+/* ลิงก์ดาวน์โหลด */
 a {
     color: #ffffff;
     background-color: #2563eb;
@@ -66,6 +69,24 @@ a {
 }
 a:hover {
     background-color: #1e40af;
+}
+
+/* ปรับ Selectbox และ Text input โหมดมืด */
+@media (prefers-color-scheme: dark) {
+    section[data-testid="stSelectbox"] > div {
+        background-color: #374151;
+        border: 1px solid #6B21A8;
+        border-radius: 6px;
+    }
+    div[data-baseweb="input"] {
+        background-color: #374151;
+        border: 1px solid #6B21A8;
+        border-radius: 6px;
+        color: white;
+    }
+    section[data-testid="stTextInput"] input {
+        color: white;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
