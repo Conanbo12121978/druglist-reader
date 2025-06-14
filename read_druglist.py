@@ -103,10 +103,10 @@ if df.empty:
     st.warning("ไม่พบข้อมูลที่ตรงกับเงื่อนไขที่เลือก")
 else:
     for _, row in df.iterrows():
-        subtype1 = row.get("subtype1_name", "")
-        subtype2 = row.get("subtype2_name", "")
-        subtype3 = row.get("subtype3_name", "")
-        group_info = f"{subtype1} ; {subtype2} ; {subtype3}" if subtype1 or subtype2 or subtype3 else "ไม่ระบุ"
+        # รวมกลุ่มยาที่ไม่ว่าง
+    group_parts = [row.get("subtype1_name", ""), row.get("subtype2_name", ""), row.get("subtype3_name", "")]
+    group_parts = [str(g).strip() for g in group_parts if pd.notna(g) and str(g).strip()]
+    group_info = " ; ".join(group_parts) if group_parts else "ไม่ระบุ"
 
         st.markdown(f"""
         <div class="drug-card">
