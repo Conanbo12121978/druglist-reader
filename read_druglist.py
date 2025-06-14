@@ -75,20 +75,23 @@ a:hover {
     background-color: #1e40af;
 }
 
-/* 🎛️ ปรับ selectbox ในโหมดมืด */
-@media (prefers-color-scheme: dark) {
-    .stSelectbox [data-baseweb="select"] > div {
-        background-color: #4B5563 !important;
-        color: white !important;
-    }
-    .stSelectbox [data-baseweb="select"] div[role="option"] {
-        background-color: #4B5563 !important;
-        color: white !important;
-    }
-    .stSelectbox [data-baseweb="select"] div[role="option"]:hover {
-        background-color: #4B5563 !important;
-    }
+/* ปรับสีพื้นหลัง dropdown ของ selectbox */
+div[data-baseweb="select"] > div {
+    background-color: #2d3748;  /* พื้นหลัง dropdown */
+    color: white;
 }
+
+/* เมื่อ hover รายการ */
+div[data-baseweb="select"] div:hover {
+    background-color: #4c566a;
+}
+
+/* สีเมื่อรายการถูกเลือก */
+div[data-baseweb="select"] div[aria-selected="true"] {
+    background-color: #6a1b9a !important;  /* สีม่วง */
+    color: white;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
