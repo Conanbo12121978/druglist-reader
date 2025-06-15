@@ -24,7 +24,7 @@ def to_excel_download(df):
        display: inline-block;
        margin-top: 10px;
     ">
-       📥 ดาวน์โหลด Excel
+       📥 ดาวน์โหลด Excel 
     </a>
     '''
 
@@ -113,6 +113,9 @@ if selected_account != "--ทั้งหมด--":
 search_text = st.text_input("🔍 พิมพ์ชื่อยา", key="search_text")
 if search_text.strip():
     df = df[df["drug_name"].fillna("").str.contains(search_text, case=False)]
+
+# 🔽 ปุ่มดาวน์โหลด Excel (ด้านบน)
+st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
 # ========== แสดงผลลัพธ์ ==========
 unique_drugs = df["drug_name"].dropna().unique()
