@@ -117,6 +117,16 @@ if search_text.strip():
 # 🔽 ปุ่มดาวน์โหลด Excel (ด้านบน)
 st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
+# ========== ตัวเลือกการเรียง ==========
+sort_option = st.selectbox(
+    "🧭 เลือกวิธีเรียงรายการยา",
+    ["🔤 เรียงตามชื่อยา (A-Z)", "🗂️ เรียงตามกลุ่มยา"]
+)
+
+if sort_option == "🔤 เรียงตามชื่อยา (A-Z)":
+    df = df.sort_values(by=["drug_name"])
+else:
+    df = df.sort_values(by=["subtype1_name", "subtype2_name", "subtype3_name", "drug_name"])
 # ========== แสดงผลลัพธ์ ==========
 unique_drugs = df["drug_name"].dropna().unique()
 st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} > {selected_account} | ค้นหา: {search_text if search_text else '-'}")
