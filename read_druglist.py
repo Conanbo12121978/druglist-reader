@@ -54,7 +54,7 @@ st.markdown("""
   --text-color: #111827;
 }
 [data-theme="dark"] {
-  --text-color: #F1F5F9;
+  --text-color: #FFFFFF;
 }
 .drug-card {
     padding: 8px 14px;
@@ -85,18 +85,7 @@ st.markdown("""
 [data-theme="dark"] .subgroup-title {
     color: #c4b5fd;
 }
-/* ปรับชื่อยาให้เป็นสีขาวใน dark mode */
-@media (prefers-color-scheme: dark) {
-    .drug-card strong {
-        color: #ffffff;
-    }
-    .group-box {
-        color: #ffffff;
-    }
-    .subgroup-title {
-        color: #e0e0ff;
-    }
-}
+
 </style>
 """, unsafe_allow_html=True)
 
