@@ -59,10 +59,10 @@ st.markdown("""
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 0;
-    color: #111827;
+    color: #111827 !important;
 }
 [data-theme="dark"] .main-title {
-    color: #F1F5F9;
+    color: #F1F5F9 !important;
 }
 .drug-card {
     padding: 8px 14px;
