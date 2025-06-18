@@ -54,7 +54,7 @@ st.markdown("""
   --text-color: #111827;
 }
 [data-theme="dark"] {
-  --text-color: #FFFFFF;
+  --text-color: #F1F5F9;
 }
 .drug-card {
     padding: 8px 14px;
