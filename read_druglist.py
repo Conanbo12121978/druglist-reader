@@ -85,18 +85,7 @@ st.markdown("""
 [data-theme="dark"] .subgroup-title {
     color: #c4b5fd;
 }
-/* ✅ สีข้อความใน dark mode */
-[data-theme="dark"] .drug-card strong {
-    color: #ffffff;
-}
 
-[data-theme="dark"] .group-box {
-    color: #ffffff;
-}
-
-[data-theme="dark"] .subgroup-title {
-    color: #e0e0ff;
-}
 </style>
 """, unsafe_allow_html=True)
 
