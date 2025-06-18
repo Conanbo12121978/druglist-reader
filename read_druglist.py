@@ -85,6 +85,18 @@ st.markdown("""
 [data-theme="dark"] .subgroup-title {
     color: #c4b5fd;
 }
+/* ปรับชื่อยาให้เป็นสีขาวใน dark mode */
+@media (prefers-color-scheme: dark) {
+    .drug-card strong {
+        color: #ffffff;
+    }
+    .group-box {
+        color: #ffffff;
+    }
+    .subgroup-title {
+        color: #e0e0ff;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
