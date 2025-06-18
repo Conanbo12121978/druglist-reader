@@ -49,6 +49,12 @@ st.markdown('<div class="main-title">💊 บัญชียา รพ.ท้า
 # CSS รองรับ dark mode
 st.markdown("""
 <style>
+:root {
+  --text-color: #111827;
+}
+[data-theme="dark"] {
+  --text-color: #F1F5F9;
+}
 .main-title {
     font-size: 24px;
     font-weight: bold;
@@ -57,12 +63,6 @@ st.markdown("""
 }
 [data-theme="dark"] .main-title {
     color: #F1F5F9;
-}
-:root {
-  --text-color: #111827;
-}
-[data-theme="dark"] {
-  --text-color: #F1F5F9;
 }
 .drug-card {
     padding: 8px 14px;
