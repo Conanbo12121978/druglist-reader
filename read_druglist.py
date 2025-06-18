@@ -127,7 +127,7 @@ if sort_mode == "เรียงตามชื่อยา":
                     str(row.get("subtype2_name", "")).strip(),
                     str(row.get("subtype3_name", "")).strip()
                 ]
-                group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
+                group_info = " > ".join([g for g in group_parts if g and g.lower() != ""])
                 st.markdown(f"""
                 <div class="drug-card" style="border-left: 6px solid {color};">
                     <strong>{row['drug_name']}</strong> <span style="color: #666;">[บัญชี: {row['account_drug_ID']}]</span><br>
