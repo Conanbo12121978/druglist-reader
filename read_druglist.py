@@ -74,7 +74,7 @@ st.markdown("""
     color: var(--text-color);
 }
 [data-theme="dark"] .group-box {
-    background-color: #3b0764;
+    background-color: #ede9fe;
     border-color: #c084fc;
 }
 .subgroup-title {
