@@ -45,34 +45,45 @@ st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered"
 df = pd.read_excel("druglist.xlsx")
 
 # หัวเรื่อง
-st.markdown('<h3 style="margin-bottom: 0; color: #6A1B9A;">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</h3>', unsafe_allow_html=True)
+st.markdown('<h3 style="margin-bottom: 0; color: var(--text-color);">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</h3>', unsafe_allow_html=True)
 
-# CSS
+# CSS รองรับ dark mode
 st.markdown("""
 <style>
+:root {
+  --text-color: #111827;
+}
+[data-theme="dark"] {
+  --text-color: #F1F5F9;
+}
 .drug-card {
-    padding: 10px 16px;
-    margin-bottom: 10px;
+    padding: 8px 14px;
+    margin-bottom: 8px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 15px;
-    background-color: #fefefe;
-    box-shadow: 1px 1px 4px rgba(0,0,0,0.05);
+    color: var(--text-color);
 }
 .group-box {
-    padding: 14px;
+    padding: 12px;
     background-color: #ede9fe;
-    border-left: 8px solid #6D28D9;
-    border-radius: 8px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: bold;
+    border: 2px solid #6D28D9;
+    border-radius: 6px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+[data-theme="dark"] .group-box {
+    background-color: #3b0764;
+    border-color: #c084fc;
 }
 .subgroup-title {
-    margin-top: 10px;
+    margin-top: 12px;
     font-weight: bold;
-    color: #5b21b6;
+    color: #4B0082;
+}
+[data-theme="dark"] .subgroup-title {
+    color: #c4b5fd;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -88,7 +99,7 @@ if st.button("🔄 เคลียร์ตัวกรองทั้งหม�
 # ตัวเลือกการเรียง
 sort_mode = st.radio("🧭 เรียงข้อมูลโดย", ["เรียงตามชื่อยา", "เรียงตามกลุ่มยา"], key="sort_mode", horizontal=True)
 
-# ตัวกรอง
+# ตัวกรอง subtype1, subtype2, account, search
 subtype1_list = df["subtype1_name"].dropna().unique()
 selected_subtype1 = st.selectbox("เลือกประเภทหลัก", ["--ทั้งหมด--"] + sorted(subtype1_list), key="subtype1_filter")
 if selected_subtype1 != "--ทั้งหมด--":
@@ -108,13 +119,13 @@ search_text = st.text_input("🔍 พิมพ์ชื่อยา", key="searc
 if search_text.strip():
     df = df[df["drug_name"].fillna("").str.contains(search_text, case=False)]
 
-# ปุ่มดาวน์โหลด
+# ปุ่มดาวน์โหลด Excel (ด้านบน)
 st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
-# Caption
+# Caption แสดงเงื่อนไข
 st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype2} > {selected_account} | ค้นหา: {search_text if search_text else '-'}")
 
-# ====== แสดงข้อมูล ======
+# ถ้าเรียงตามชื่อยา: ใช้โค้ดเดิม
 if sort_mode == "เรียงตามชื่อยา":
     unique_drugs = df["drug_name"].dropna().unique()
     st.subheader(f"📋 พบ {len(unique_drugs)} รายการชื่อยาไม่ซ้ำ")
@@ -131,11 +142,11 @@ if sort_mode == "เรียงตามชื่อยา":
                     str(row.get("subtype2_name", "")).strip(),
                     str(row.get("subtype3_name", "")).strip()
                 ]
-                group_info = " > ".join([g for g in group_parts if g])
+                group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
                 st.markdown(f"""
                 <div class="drug-card" style="border-left: 6px solid {color};">
-                    <strong>{row['drug_name']}</strong> <span style="color: #666;">[บัญชี: {row['account_drug_ID'] or "-"}]</span><br>
-                    <span style="color: #666;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
+                    <strong>{row['drug_name']}</strong> <span style="color: #888;">[บัญชี: {row['account_drug_ID'] if pd.notna(row['account_drug_ID']) else ''}]</span><br>
+                    <span style="color: #888;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
                 </div>
                 """, unsafe_allow_html=True)
             else:
@@ -147,41 +158,44 @@ if sort_mode == "เรียงตามชื่อยา":
                             str(row.get("subtype2_name", "")).strip(),
                             str(row.get("subtype3_name", "")).strip()
                         ]
-                        group_info = " > ".join([g for g in group_parts if g])
+                        group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
                         st.markdown(f"""
                         <div class="drug-card" style="border-left: 6px solid {color};">
-                            <strong>{row['drug_name']}</strong> <span style="color: #666;">[บัญชี: {row['account_drug_ID'] or "-"}]</span><br>
-                            <span style="color: #666;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
+                            <strong>{row['drug_name']}</strong> <span style="color: #888;">[บัญชี: {row['account_drug_ID'] if pd.notna(row['account_drug_ID']) else ''}]</span><br>
+                            <span style="color: #888;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
                         </div>
                         """, unsafe_allow_html=True)
 
-# ========= เรียงตามกลุ่มยา =========
+# ถ้าเรียงตามกลุ่มยา: ใช้กรอบใหญ่ตาม subtype1_name แยกย่อย subtype2/3
 else:
     st.subheader("🧪 เรียงตามกลุ่มยา")
     df = df[df["drug_name"].notna() & (df["drug_name"].str.strip() != "")]
-    df["account_drug_ID"] = df["account_drug_ID"].fillna("")
-    df["subtype2_name"] = df["subtype2_name"].fillna("")
-    df["subtype3_name"] = df["subtype3_name"].fillna("")
-    df = df.sort_values(by=["subtype1_name", "subtype2_name", "subtype3_name", "account_drug_ID", "drug_name"])
+    df["account_order"] = df["account_drug_ID"].fillna("")
+    df = df.sort_values(by=["subtype1_name", "subtype2_name", "subtype3_name", "account_order", "drug_name"])
 
     for subtype1, group1 in df.groupby("subtype1_name"):
-        st.markdown(f"<div class='group-box'>🟣 {subtype1}</div>", unsafe_allow_html=True)
-        for subtype2, group2 in group1.groupby("subtype2_name"):
+        st.markdown(f"<div class='group-box'><strong>🟣 {subtype1}</strong></div>", unsafe_allow_html=True)
+
+        group1_mod = group1.copy()
+        group1_mod["subtype2_name"] = group1_mod["subtype2_name"].fillna("")
+        for subtype2, group2 in group1_mod.groupby("subtype2_name"):
             if subtype2:
                 st.markdown(f"<div class='subgroup-title'>🔹 {subtype2}</div>", unsafe_allow_html=True)
-            for subtype3, group3 in group2.groupby("subtype3_name"):
+            group2_mod = group2.copy()
+            group2_mod["subtype3_name"] = group2_mod["subtype3_name"].fillna("")
+            for subtype3, group3 in group2_mod.groupby("subtype3_name"):
                 if subtype3:
                     st.markdown(f"<div style='margin-left:10px;font-weight:bold;color:#9C27B0;'>⇨ {subtype3}</div>", unsafe_allow_html=True)
                 for _, row in group3.iterrows():
-                    color = get_border_color(row["account_drug_ID"])
+                    color = get_border_color(row['account_drug_ID'])
                     st.markdown(f"""
                     <div class="drug-card" style="border-left: 6px solid {color}; margin-left: 20px;">
                         💊 <strong>{row['drug_name']}</strong>
-                        <span style="color: #666;">[บัญชี: {row['account_drug_ID'] or "-"}]</span>
+                        <span style="color: #888;">[บัญชี: {row['account_drug_ID'] if pd.notna(row['account_drug_ID']) else ''}]</span>
                     </div>
                     """, unsafe_allow_html=True)
 
-# ปุ่มดาวน์โหลดล่าง
+# ปุ่มดาวน์โหลด Excel (ด้านล่าง)
 st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
 # Footer
