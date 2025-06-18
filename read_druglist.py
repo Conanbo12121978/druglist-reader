@@ -45,11 +45,19 @@ st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered"
 df = pd.read_excel("druglist.xlsx")
 
 # หัวเรื่อง
-st.markdown('<h3 style="margin-bottom: 0; color: var(--text-color);">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</h3>', unsafe_allow_html=True)
-
+st.markdown('<div class="main-title">💊 บัญชียา รพ.ท้ายเหมืองชัยพัฒน์ ปีงบ 2568</div>', unsafe_allow_html=True)
 # CSS รองรับ dark mode
 st.markdown("""
 <style>
+.main-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: #111827;
+}
+[data-theme="dark"] .main-title {
+    color: #F1F5F9;
+}
 :root {
   --text-color: #111827;
 }
