@@ -141,18 +141,27 @@ if sort_mode == "เรียงตามชื่อยา":
 else:
     st.subheader("🧪 เรียงตามกลุ่มยา")
     grouped = df.groupby("subtype1_name")
-    for subtype1, group1 in grouped:
-        st.markdown(f"<div class='group-box'><strong>🟣 {subtype1}</strong></div>", unsafe_allow_html=True)
-        subgrouped = group1.groupby(["subtype2_name", "subtype3_name"])
-        for (sub2, sub3), group2 in subgrouped:
-            sub_header = f"{sub2}" if pd.isna(sub3) else f"{sub2} > {sub3}"
-            st.markdown(f"<div class='subgroup-title'>🔹 {sub_header}</div>", unsafe_allow_html=True)
-            for _, row in group2.iterrows():
-                color = get_border_color(row['account_drug_ID'])
+
+for subtype1, group1 in grouped:
+    st.markdown(f"<h4 style='margin-top:30px;color:#4B0082;'>{subtype1}</h4>", unsafe_allow_html=True)
+
+    sub2_grouped = group1.groupby("subtype2_name")
+    for subtype2, group2 in sub2_grouped:
+        if not pd.isna(subtype2):
+            st.markdown(f"<h5 style='margin-top:16px;color:#6A1B9A;'>&nbsp;&nbsp;• {subtype2}</h5>", unsafe_allow_html=True)
+
+        sub3_grouped = group2.groupby("subtype3_name")
+        for subtype3, group3 in sub3_grouped:
+            if not pd.isna(subtype3):
+                st.markdown(f"<div style='margin-left:24px;margin-bottom:6px;font-weight:bold;color:#9C27B0;'>⇨ {subtype3}</div>", unsafe_allow_html=True)
+
+            for _, row in group3.iterrows():
+                name = row["drug_name"]
+                account = row["account_drug_ID"]
+                color = get_border_color(account)
                 st.markdown(f"""
-                <div class="drug-card" style="border-left: 6px solid {color}; margin-left: 10px;">
-                    💊 <strong>{row['drug_name']}</strong>
-                    <span style="color: #666;">[บัญชี: {row['account_drug_ID']}]</span>
+                <div class="drug-card" style="border-left: 8px solid {color}; margin-left: 32px;">
+                    {name} <span style="color: gray;">({account})</span>
                 </div>
                 """, unsafe_allow_html=True)
 
