@@ -85,7 +85,29 @@ st.markdown("""
 [data-theme="dark"] .subgroup-title {
     color: #c4b5fd;
 }
+/* กล่องยา (.drug-card) สีพื้นต่างกันตามธีม */
+.drug-card {
+    background-color: #ffffff;  /* พื้นหลังขาวสำหรับโหมดสว่าง */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: var(--text-color);
+}
 
+[data-theme="dark"] .drug-card {
+    background-color: #1f2937;  /* พื้นหลังเข้มในโหมดมืด */
+    border: 1px solid #4b5563;
+}
+
+/* สีข้อความชื่อยา */
+.drug-card strong {
+    color: #111827;
+}
+[data-theme="dark"] .drug-card strong {
+    color: #ffffff;
+}
 </style>
 """, unsafe_allow_html=True)
 
