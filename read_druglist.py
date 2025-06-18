@@ -194,4 +194,4 @@ st.markdown(to_excel_download(df), unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
-st.caption("จัดทำโดย กลุ่มงานเภสัชกรรม รพ.ท้ายเหมืองชัยพัฒน์ | © 2568")
+st.caption("จัดทำโดย กลุ่มงานเภสัชกรรม ทันตกรรม แพทย์แผนไทย รพ.ท้ายเหมืองชัยพัฒน์ | © 2568")
