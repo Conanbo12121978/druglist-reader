@@ -152,7 +152,7 @@ st.caption(f"🎯 ตัวกรอง: {selected_subtype1} > {selected_subtype
 # ถ้าเรียงตามชื่อยา: ใช้โค้ดเดิม
 if sort_mode == "เรียงตามชื่อยา":
     unique_drugs = df["drug_name"].dropna().unique()
-    st.subheader(f"📋 พบ {len(unique_drugs)} รายการชื่อยาไม่ซ้ำ")
+    st.subheader(f"📋 พบ {len(unique_drugs)} รายการ (ชื่อยาไม่ซ้ำ)")
     if len(unique_drugs) == 0:
         st.warning("ไม่พบข้อมูลที่ตรงกับเงื่อนไข")
     else:
@@ -208,16 +208,22 @@ else:
             group2_mod = group2.copy()
             group2_mod["subtype3_name"] = group2_mod["subtype3_name"].fillna("")
             for subtype3, group3 in group2_mod.groupby("subtype3_name"):
-                if subtype3:
-                    st.markdown(f"<div style='margin-left:10px;font-weight:bold;color:#9C27B0;'>⇨ {subtype3}</div>", unsafe_allow_html=True)
-                for _, row in group3.iterrows():
-                    color = get_border_color(row['account_drug_ID'])
-                    st.markdown(f"""
-                    <div class="drug-card" style="border-left: 6px solid {color}; margin-left: 20px;">
-                        💊 <strong>{row['drug_name']}</strong>
-                        <span style="color: #888;">[บัญชี: {row['account_drug_ID'] if pd.notna(row['account_drug_ID']) else ''}]</span>
-                    </div>
-                    """, unsafe_allow_html=True)
+    if subtype3:
+        st.markdown(f"<div style='margin-left:10px;font-weight:bold;color:#9C27B0;'>⇨ {subtype3}</div>", unsafe_allow_html=True)
+
+    group3["subtype4_name"] = group3["subtype4_name"].fillna("")
+    for subtype4, group4 in group3.groupby("subtype4_name"):
+        if subtype4:
+            st.markdown(f"<div style='margin-left:20px;font-weight:bold;color:#A83279;'>▪ {subtype4}</div>", unsafe_allow_html=True)
+
+        for _, row in group4.iterrows():
+            color = get_border_color(row['account_drug_ID'])
+            st.markdown(f"""
+            <div class="drug-card" style="border-left: 6px solid {color}; margin-left: 30px;">
+                💊 <strong>{row['drug_name']}</strong>
+                <span style="color: #888;">[บัญชี: {row['account_drug_ID'] if pd.notna(row['account_drug_ID']) else ''}]</span>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ปุ่มดาวน์โหลด Excel (ด้านล่าง)
 st.markdown(to_excel_download(df), unsafe_allow_html=True)
