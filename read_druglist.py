@@ -244,7 +244,7 @@ else:
                        <div class="drug-card" style="border-left: 6px solid {color}; margin-left: 20px;">
                            💊 <strong>{drug_name}</strong><br>
                            <span style="margin-left: 22px; color: #888;">บัญชี: {account}</span><br>
-                           <span style="color: #888;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
+                           
                            </div>
                            """, unsafe_allow_html=True)
 
