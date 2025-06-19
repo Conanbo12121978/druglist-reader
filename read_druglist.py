@@ -241,13 +241,13 @@ else:
                        ]
                        group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
 
-st.markdown(f"""
-<div class="drug-card" style="border-left: 6px solid {color}; margin-left: 20px;">
-    💊 <strong>{drug_name}</strong><br>
-    <span style="margin-left: 22px; color: #888;">บัญชี: {account}</span><br>
-    <span style="color: #888;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
-</div>
-""", unsafe_allow_html=True)
+                       st.markdown(f"""
+                       <div class="drug-card" style="border-left: 6px solid {color}; margin-left: 20px;">
+                           💊 <strong>{drug_name}</strong><br>
+                           <span style="margin-left: 22px; color: #888;">บัญชี: {account}</span><br>
+                           <span style="color: #888;">กลุ่ม: {group_info if group_info else 'ไม่ระบุ'}</span>
+                           </div>
+                           """, unsafe_allow_html=True)
 
 # ปุ่มดาวน์โหลด Excel (ด้านล่าง)
 st.markdown(to_excel_download(df), unsafe_allow_html=True)
