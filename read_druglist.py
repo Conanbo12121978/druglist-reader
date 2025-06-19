@@ -193,9 +193,27 @@ if sort_mode == "เรียงตามชื่อยา":
 # ถ้าเรียงตามกลุ่มยา: ใช้กรอบใหญ่ตาม subtype1_name แยกย่อย subtype2/3
 else:
     st.subheader("🧪 เรียงตามกลุ่มยา")
-    df = df[df["drug_name"].notna() & (df["drug_name"].str.strip() != "")]
-    df["account_order"] = df["account_drug_ID"].fillna("")
-    df = df.sort_values(by=["subtype1_name", "subtype2_name", "subtype3_name", "account_order", "drug_name"])
+     # ✅ วางตรงนี้
+    account_order_map = {
+        "ก": 1,
+        "ข": 2,
+        "ค": 3,
+        "ง": 4,
+        "จ": 5,
+        "นอกบัญชี": 6,
+        "บัญชียาจากสมุนไพร": 7
+    }
+    df["account_order"] = df["account_drug_ID"].map(account_order_map).fillna(99)
+    df = df[df["drug_name"].notna()]
+    df["drug_name"] = df["drug_name"].astype(str).str.strip()
+    df = df.sort_values(by=[
+        "subtype1_name",
+        "subtype2_name",
+        "subtype3_name",
+        "subtype4_name",
+        "account_order",
+        "drug_name"
+    ])
 
     for subtype1, group1 in df.groupby("subtype1_name"):
         st.markdown(f"<div class='group-box'><strong>🟣 {subtype1}</strong></div>", unsafe_allow_html=True)
