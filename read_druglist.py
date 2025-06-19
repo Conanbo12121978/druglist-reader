@@ -211,8 +211,8 @@ else:
                 if subtype3:
                     st.markdown(f"<div style='margin-left:10px;font-weight:bold;color:#9C27B0;'>⇨ {subtype3}</div>", unsafe_allow_html=True)
                 group3 = group3.copy()
-                group3["subtype4_name"] = group3_mod["subtype4_name"].fillna("")
-                for subtype4, group4 in group3_mod.groupby("subtype4_name"):
+                group3["subtype4_name"] = group3["subtype4_name"].fillna("")
+                for subtype4, group4 in group3.groupby("subtype4_name"):
                     if subtype4:
                         st.markdown(f"<div style='margin-left:20px;font-weight:bold;color:#A83279;'>▪ {subtype4}</div>", unsafe_allow_html=True)
                     for _, row in group4.iterrows():
