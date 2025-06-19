@@ -181,7 +181,8 @@ if sort_mode == "เรียงตามชื่อยา":
                         group_parts = [
                             str(row.get("subtype1_name", "")).strip(),
                             str(row.get("subtype2_name", "")).strip(),
-                            str(row.get("subtype3_name", "")).strip()
+                            str(row.get("subtype3_name", "")).strip(),
+                            str(row.get("subtype4_name", "")).strip()
                         ]
                         group_info = " > ".join([g for g in group_parts if g and g.lower() != "nan"])
                         st.markdown(f"""
