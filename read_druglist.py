@@ -36,7 +36,7 @@ def get_border_color(account_id):
         "นอกบัญชี": "#a3a3a3",
         "บัญชียาจากสมุนไพร": "#7a3a1d",
     }
-    return color_map.get(account_id, "#COD4E1")
+    return color_map.get(account_id, "#cod4e1")
 
 # ========== เริ่ม Streamlit ==========
 st.set_page_config(page_title="Drug Finder", page_icon="💊", layout="centered")
