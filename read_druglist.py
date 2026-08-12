@@ -28,8 +28,8 @@ def to_excel_download(df):
 def get_border_color(account_id):
     account_id = str(account_id).strip()
     color_map = {
-        "b": "#38bdf8",
-        "s": "#4ade80",
+        "b": "#4ade80",
+        "s": "#FACC15",
         "ex": "#facc15",
         "R1": "#fb923c",
         "R2": "#f472b6",
