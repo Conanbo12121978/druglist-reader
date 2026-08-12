@@ -30,7 +30,7 @@ def get_border_color(account_id):
     color_map = {
         "b": "#4ade80",
         "s": "#FACC15",
-        "ex": "#facc15",
+        "ex": "#F59E0B",
         "R1": "#fb923c",
         "R2": "#f472b6",
         "นอกบัญชี": "#a3a3a3",
